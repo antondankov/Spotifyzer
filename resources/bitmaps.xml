@@ -1,0 +1,14 @@
+<resources>
+    <bitmap id="play" filename="drawables/play.png" dithering="none" />
+    <bitmap id="pause" filename="drawables/pause.png" dithering="none" />
+    <bitmap id="next" filename="drawables/next.png" dithering="none" />
+    <bitmap id="previous" filename="drawables/previous.png" dithering="none" />
+    <bitmap id="like" filename="drawables/like.png" dithering="none" />
+    <bitmap id="liked" filename="drawables/liked.png" dithering="none" />
+    <bitmap id="repeatOff" filename="drawables/repeat_off.png" dithering="none" />
+    <bitmap id="repeatAll" filename="drawables/repeat_all.png" dithering="none" />
+    <bitmap id="repeatSolo" filename="drawables/repeat_solo.png" dithering="none" />
+    <bitmap id="placeHolder" filename="drawables/placeHolder.png" dithering="none" />
+    <bitmap id="placeHolder_full" filename="drawables/placeHolder_full.png" dithering="none" />
+    <bitmap id="backgroundDivider_full" filename="drawables/backgroundDivider_full.png" dithering="none" />
+</resources>
