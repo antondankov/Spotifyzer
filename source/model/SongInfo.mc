@@ -7,5 +7,11 @@ class SongInfo{
     public var name as String;
     public var image as Bitmap;
     public var length as Number;
-    public var id as String = "";
+    public var id as String;
+
+
+    public function initialize(){
+        id = "";
+        length = 0;
+    }
 }

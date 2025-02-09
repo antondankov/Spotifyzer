@@ -28,7 +28,6 @@ class SongStorage{
         cycleBuffer[currentIndex] = data;
         
         bufferMap.put(data._songId, currentIndex);
-        
     }
 
     public function setImageToCurrentSong(bitmap){

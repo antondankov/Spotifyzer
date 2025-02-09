@@ -39,7 +39,6 @@ class Player {
     }
 
     currentSong = new SongInfo();
-    currentSong.length = 0;
     timer.start(method(:timerCallback), 1000, true);
 
     sendRequestToUpdateSong();
@@ -194,23 +193,20 @@ class Player {
     } else if (transmitData._action == OperationEnum.FULL_UPDATE) {
       songStorage.removeRequest(transmitData._songId);
       songStorage.storeTransmissionData(transmitData);
-      updatePlayerStatus(transmitData);
       updateSongInfo(transmitData);
+      updatePlayerStatus(transmitData);
     }
   }
 
   private function updateSmallSongInfo(transmitData) {
-    var isCurrentSongAndStored =
-      !currentSong.id.equals(transmitData._songId) &&
-      songStorage.isStored(transmitData._songId);
-
-    if (currentSong.id == null || !isCurrentSongAndStored) {
+    if (!songStorage.isStored(transmitData._songId)) {
       if (!songStorage.isRequested(transmitData._songId)) {
         songStorage.setRequest(transmitData._songId);
         sendRequestToUpdateSong();
       }
     } else {
       updateSongInfo(songStorage.getStoredSong(transmitData._songId));
+      updatePlayerStatus(transmitData);
     }
   }
 
@@ -243,11 +239,14 @@ class Player {
   }
 
   public function updateSongInfo(transmitData as TransmitData) {
-    layout.currentSongName.setText(transmitData._songName);
-    layout.currentArtist.setText(transmitData._songArtist);
-
+    if (currentSong.id.equals(transmitData._songId)) {
+      return;
+    }
     currentSong.id = transmitData._songId;
     currentSong.length = transmitData._songLength;
+
+    layout.currentSongName.setText(transmitData._songName);
+    layout.currentArtist.setText(transmitData._songArtist);
 
     if (transmitData.bitmap == null) {
       sendImageRequest(transmitData._imageUrl);
@@ -258,7 +257,7 @@ class Player {
 
   public function onImageMessage(responseCode, data) {
     if (responseCode == 200 && data != null) {
-      songStorage.setImageToCurrentSong(data);
+      songStorage.setImageToCurrentSong(data); //TODO If its swapped to fast, it can set image to the previous song
       updateImage(data);
     }
   }
